@@ -1,7 +1,11 @@
+import Slider from "@/components/Slider";
+
 const HomePage = () => {
   return (
-    <div className="">Your ECommerce Application</div>
-  )
-}
+    <div className="">
+      <Slider />
+    </div>
+  );
+};
 
-export default HomePage
+export default HomePage;
