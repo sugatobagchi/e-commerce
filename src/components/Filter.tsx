@@ -1,7 +1,7 @@
 const Filter = () => {
-  const handleFilterChange = (e: any) => {
-    e.preventDefault();
-  };
+  // const handleFilterChange = (e: any) => {
+  //   e.preventDefault();
+  // };
 
   return (
     <div className="mt-12 flex justify-between">
@@ -69,7 +69,7 @@ const Filter = () => {
           name="sort"
           id=""
           className="py-2 px-4 rounded-2xl text-xs font-medium bg-white ring-1 ring-gray-400"
-        //   onChange={handleFilterChange}
+          // onChange={handleFilterChange}
         >
           <option>Sort By</option>
           <option value="asc price">Price (low to high)</option>
