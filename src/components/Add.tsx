@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 
-const Add = () => {
+const Add = ({
+  productId,
+  variantId,
+  stockNumber,
+}: {
+  productId: string;
+  variantId: string;
+  stockNumber: number;
+}) => {
   const [quantity, setQuantity] = useState(1);
 
   const stock = 4; // TEMPORARY
@@ -36,7 +44,7 @@ const Add = () => {
             </button>
           </div>
           <div className="text-xs">
-            Only <span className="text-orange-500">4 items</span> left!
+            Only <span className="text-orange-500">{stockNumber} items</span> left!
             <br />
             {"Don't"} miss it
           </div>
