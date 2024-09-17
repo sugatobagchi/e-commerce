@@ -1,7 +1,24 @@
+"use client";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 const Filter = () => {
-  // const handleFilterChange = (e: any) => {
-  //   e.preventDefault();
-  // };
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+
+  const handleFilterChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
+    let { name, value } = e.target;
+
+    if (name === "type" && value === "Type") {
+      value = "";
+    }
+    const params = new URLSearchParams(searchParams);
+    params.set(name, value);
+    replace(`${pathname}?${params.toString()}`);
+  };
 
   return (
     <div className="mt-12 flex justify-between">
@@ -9,59 +26,43 @@ const Filter = () => {
         <select
           name="type"
           id=""
-          className="py-2 px-4 rounded-2xl text-xs font-medium bg-gray-200"
+          className="py-2 px-4 rounded-2xl text-xs font-medium bg-[#EBEDED]"
+          onChange={handleFilterChange}
         >
           <option>Type</option>
-          <option value="">Physical</option>
-          <option value="">Digital</option>
+          <option value="physical">Physical</option>
+          <option value="digital">Digital</option>
         </select>
         <input
           type="text"
           name="min"
           placeholder="min price"
           className="text-xs rounded-2xl pl-2 w-24 ring-1 ring-gray-400"
+          onChange={handleFilterChange}
         />
         <input
           type="text"
           name="max"
           placeholder="max price"
           className="text-xs rounded-2xl pl-2 w-24 ring-1 ring-gray-400"
+          onChange={handleFilterChange}
         />
+        {/* TODO: Filter Categories */}
         <select
-          name="type"
-          id=""
-          className="py-2 px-4 rounded-2xl text-xs font-medium bg-gray-200"
+          name="cat"
+          className="py-2 px-4 rounded-2xl text-xs font-medium bg-[#EBEDED]"
+          onChange={handleFilterChange}
         >
-          <option>Type</option>
-          <option value="">Physical</option>
-          <option value="">Digital</option>
+          <option>Category</option>
+          <option value="">New Arrival</option>
+          <option value="">Popular</option>
         </select>
         <select
-          name="type"
+          name=""
           id=""
-          className="py-2 px-4 rounded-2xl text-xs font-medium bg-gray-200"
+          className="py-2 px-4 rounded-2xl text-xs font-medium bg-[#EBEDED]"
         >
-          <option>Type</option>
-          <option value="">Physical</option>
-          <option value="">Digital</option>
-        </select>
-        <select
-          name="type"
-          id=""
-          className="py-2 px-4 rounded-2xl text-xs font-medium bg-gray-200"
-        >
-          <option>Type</option>
-          <option value="">Physical</option>
-          <option value="">Digital</option>
-        </select>
-        <select
-          name="type"
-          id=""
-          className="py-2 px-4 rounded-2xl text-xs font-medium bg-gray-200"
-        >
-          <option>Type</option>
-          <option value="">Physical</option>
-          <option value="">Digital</option>
+          <option>All Filters</option>
         </select>
       </div>
       <div className="">
@@ -69,7 +70,7 @@ const Filter = () => {
           name="sort"
           id=""
           className="py-2 px-4 rounded-2xl text-xs font-medium bg-white ring-1 ring-gray-400"
-          // onChange={handleFilterChange}
+          onChange={handleFilterChange}
         >
           <option>Sort By</option>
           <option value="asc price">Price (low to high)</option>

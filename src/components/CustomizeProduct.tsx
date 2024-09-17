@@ -72,6 +72,7 @@ const CustomizeProduct = ({
               return option.name === "Color" ? (
                 <li
                   className="w-8 h-8 rounded-full ring-1 ring-gray-300 relative"
+                  key={choice.description}
                   style={{
                     backgroundColor: choice.value,
                     cursor: disabled ? "not-allowed" : "pointer",
@@ -88,6 +89,7 @@ const CustomizeProduct = ({
               ) : (
                 <li
                   className="ring-1 ring-ecart text-ecart rounded-md py-1 px-4 text-sm"
+                  key={choice.description}
                   style={{
                     cursor: disabled ? "not-allowed" : "pointer",
                     backgroundColor: selected
