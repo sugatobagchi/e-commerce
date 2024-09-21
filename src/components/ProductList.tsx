@@ -36,18 +36,23 @@ const ProductList = async ({
     );
   // .find();
 
+  let res;
   if (searchParams?.sort) {
     const [sortType, sortBy] = searchParams.sort.split(" ");
 
     if (sortType === "asc") {
-      productQuery.ascending(sortBy);
+      res = await productQuery.ascending(sortBy).find();
     }
     if (sortType === "desc") {
-      productQuery.descending(sortBy);
+      res = await productQuery.descending(sortBy).find();
     }
+  } else {
+    res = await productQuery.find();
   }
 
-  const res = await productQuery.find();
+  if (!res) {
+    return <div>No products found</div>;
+  }
 
   return (
     <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
@@ -98,7 +103,7 @@ const ProductList = async ({
       ))}
       {searchParams?.cat || searchParams?.name ? (
         <Pagination
-          currentPage ={res.currentPage || 0}
+          currentPage={res.currentPage || 0}
           hasPrev={res.hasPrev()}
           hasNext={res.hasNext()}
         />
