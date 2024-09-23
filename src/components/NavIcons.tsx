@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import CartModal from "./CartModal";
 import { useWixClient } from "@/hooks/useWixClient";
+import { useCartStore } from "@/hooks/useCartStore";
 
 const NavIcons = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -27,22 +28,6 @@ const NavIcons = () => {
     }
   };
 
-  /* AUTH WITH WIX-MANAGED AUTH */
-
-  /* const wixClient = useWixClient();
-
-  const login = async () => {
-    const loginRequestData = wixClient.auth.generateOAuthData(
-      "http://localhost:3000"
-    );
-
-    console.log(loginRequestData);
-
-    localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
-    const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
-    window.location.href = authUrl;
-  }; */
-
   const handleLogout = async () => {
     setIsLoading(true);
     Cookies.remove("refreshToken");
@@ -51,6 +36,12 @@ const NavIcons = () => {
     setIsProfileOpen(false);
     router.push(logoutUrl);
   };
+
+  const { cart, counter, getCart } = useCartStore();
+
+  useEffect(() => {
+    getCart(wixClient);
+  }, [wixClient, getCart]);
 
   return (
     <div className="flex item-center gap-4 xl:gap-6 relative">
@@ -90,7 +81,7 @@ const NavIcons = () => {
           className="cursor-pointer"
         />
         <div className="absolute -top-4 -right-4 w-6 h-6 bg-ecart rounded-full text-white text-sm flex items-center justify-center">
-          2
+          {counter}
         </div>
       </div>
 

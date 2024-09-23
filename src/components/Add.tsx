@@ -14,12 +14,12 @@ const Add = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
 
-  const stock = 4; // TEMPORARY
+  // const stockNumber = 4; // TEMPORARY
 
-  const handleQuantity = (type: string) => {
+  const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
       setQuantity(quantity - 1);
-    } else if (type === "i" && quantity < stock) {
+    } else if (type === "i" && quantity < stockNumber) {
       setQuantity(quantity + 1);
     }
   };
@@ -35,7 +35,7 @@ const Add = ({
             catalogItemId: productId,
             ...(variantId && { options: { variantId } }),
           },
-          quantity: stockNumber,
+          quantity,
         },
       ],
     });
@@ -62,18 +62,19 @@ const Add = ({
             </button>
           </div>
           {stockNumber < 1 ? (
-            <div className="text-xs">Product is out of stock</div>
+            <div className="text-xs">Product is out of stockNumber</div>
           ) : (
             <div className="text-xs">
               Only <span className="text-orange-500">{stockNumber} items</span>{" "}
               left!
-              <br /> {"Don't"} miss it
+              <br />
+              {"Don't"} miss it
             </div>
           )}
         </div>
         <button
           className="w-36 text-sm rounded-3xl ring-1 ring-ecart text-ecart py-2 px-2 hover:bg-ecart hover:text-white diasbled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none"
-          onClick={addItem()}
+          onClick={() => addItem}
         >
           {" "}
           Add to Card
